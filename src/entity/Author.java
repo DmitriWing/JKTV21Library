@@ -1,18 +1,18 @@
 package entity;
 
 
-public class Reader {
+public class Author {
     private String name;
     private String lastName;
 
-    public Reader() {
+    public Author() {       // this is constructor. rbm -> insert code... -> constructor... must be in all classes
     }
 
-    public Reader(String name, String lastName) {
+    public Author(String name, String lastName) {
         this.name = name;
         this.lastName = lastName;
     }
-
+//  -------------------------------- // rbm -> insert code... getters and setters, choose all, choose incapsulate
     public String getlastName() {
         return lastName;
     }
@@ -28,17 +28,17 @@ public class Reader {
     public void setName(String name) {
         this.name = name;
     }
+//  --------------------------------
 
-    @Override
+    @Override   // // rbm -> insert code... -> toString...
     public String toString() {
-        return "Reader{" 
+        return "Author{" 
                 + "name=" 
                 + name 
                 + ", lastName=" 
-                + lastName + '}';
+                + lastName 
+                + '}';
+        
     }
-    
-    
-    
     
 }
