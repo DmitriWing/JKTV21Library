@@ -23,6 +23,7 @@ public class App {
             System.out.println("4 - Return book");
             System.out.println("5 - Books list");
             System.out.println("6 - Authors list");
+            System.out.println("7 - Edit book");
             System.out.println("Choose function number:");
             int task = scanner.nextInt();
             scanner.nextLine();
@@ -86,7 +87,17 @@ public class App {
                     
                     System.out.println(splitter);
                     break;
+                case 7:
+                    System.out.println("7 - Edit book");
+                    System.out.println("Input book number you like to edit ");
+                    int bookNrToEdit = scanner.nextInt()-1;
+                    Book editBook = books[bookNrToEdit];
+                    Book changeBook = new Book();
                     
+                    
+                    
+                    
+                    System.out.println(splitter);
                 default:
                     System.out.println("Choose function number from the list!\n---------------------------------------------------------------------------");
             }
