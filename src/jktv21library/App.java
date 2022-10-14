@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class App {
     private Scanner scanner = new Scanner(System.in);
     private Book[] books = new Book[0];     // initialize object book with null = link to Book[0]
+    private Author[] authors = new Author[0];
     public void run(){
         String splitter = "------------------------------------------------------------------------------";
         
@@ -93,6 +94,33 @@ public class App {
                     int bookNrToEdit = scanner.nextInt()-1;
                     Book editBook = books[bookNrToEdit];
                     Book changeBook = new Book();
+                    String chBookKeepAuth[];
+                    System.out.println("Now you gonna edit book\n" + editBook);
+                    System.out.println("Press 'T' to edit title\nPress 'A' to edit author(s)");
+                    scanner.nextLine();
+                    
+//                    System.out.println(Arrays.toString(editBook.getAuthors()));
+                    
+                    String whatToEdit = scanner.nextLine();
+                    switch (whatToEdit.toUpperCase()){
+                        case "T":
+                            System.out.println("Input new title: ");
+                            changeBook.setTitle(scanner.nextLine());
+//                            changeBook.addAuthor();
+                            for (int i = 0; i < editBook.getAuthors().length; i++) {
+                                
+                            }
+//                            
+                            
+                            
+                            break;
+                        case "A":
+                            
+                            
+                            
+                            break;
+                            
+                    }
                     
                     
                     
@@ -115,4 +143,5 @@ public class App {
         author.setlastName(scanner.nextLine());
         return author;
     }
+
 }
