@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class App {
     private Scanner scanner = new Scanner(System.in);
     private Book[] books = new Book[0];     // initialize object book with null = link to Book[0]
-    private Author[] authors = new Author[0];
+//    private Author[] authors = new Author[0];
     public void run(){
         String splitter = "------------------------------------------------------------------------------";
         
@@ -94,7 +94,7 @@ public class App {
                     int bookNrToEdit = scanner.nextInt()-1;
                     Book editBook = books[bookNrToEdit];
                     Book changeBook = new Book();
-                    String chBookKeepAuth[];
+
                     System.out.println("Now you gonna edit book\n" + editBook);
                     System.out.println("Press 'T' to edit title\nPress 'A' to edit author(s)");
                     scanner.nextLine();
@@ -106,11 +106,17 @@ public class App {
                         case "T":
                             System.out.println("Input new title: ");
                             changeBook.setTitle(scanner.nextLine());
-//                            changeBook.addAuthor();
                             for (int i = 0; i < editBook.getAuthors().length; i++) {
+                                changeBook.addAuthor(editBook.getAuthors()[i]);
                                 
                             }
-//                            
+                            // now var changeBook have to be replaced in array books
+//                            //--------------------------
+//                            Book[] newBook = Arrays.copyOf(this.books, this.books.length+1);    // this - means that variable belong to the class
+//                            newBook[newBook.length-1] = book;
+//                            this.books = newBook;
+//                            //------------------------------------
+                            
                             
                             
                             break;
