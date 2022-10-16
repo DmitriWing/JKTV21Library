@@ -107,20 +107,35 @@ public class App {
                             System.out.println("Input new title: ");
                             changeBook.setTitle(scanner.nextLine());
                             for (int i = 0; i < editBook.getAuthors().length; i++) {
-                                changeBook.addAuthor(editBook.getAuthors()[i]);
-                                
+                                changeBook.addAuthor(editBook.getAuthors()[i]);     // copy to changeBook array with old authors
                             }
-                            // now var changeBook have to be replaced in array books
-//                            //--------------------------
-//                            Book[] newBook = Arrays.copyOf(this.books, this.books.length+1);    // this - means that variable belong to the class
-//                            newBook[newBook.length-1] = book;
-//                            this.books = newBook;
-//                            //------------------------------------
-                            
-                            
-                            
+                            books[bookNrToEdit] = changeBook;
                             break;
                         case "A":
+                            System.out.println("This book has " + editBook.getAuthors().length + " author(s)");
+                            if (editBook.getAuthors().length > 1) {
+                                for (int i = 0; i < editBook.getAuthors().length; i++) {
+                                    System.out.println((i+1) + ". " + editBook.getAuthors()[i]);
+                                }
+                                System.out.println("Choose author number to edit");
+                                int authorToEdit = scanner.nextInt()-1;
+                                scanner.nextLine();
+                                for (int i = 0; i < editBook.getAuthors().length; i++) {
+                                    if (authorToEdit == i) {
+                                        changeBook.addAuthor(createAuthor());
+                                        
+                                    }else {
+                                        changeBook.addAuthor(editBook.getAuthors()[i]);
+                                    }
+                                }
+                            }else{
+                                System.out.println("Input new author data: ");
+                                changeBook.addAuthor(createAuthor());
+                            }
+                            changeBook.setTitle(editBook.getTitle());
+                            books[bookNrToEdit] = changeBook;
+                            
+                            
                             
                             
                             
