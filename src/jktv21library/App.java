@@ -72,15 +72,21 @@ public class App {
                     System.out.println("5 - Books list");
                     for (int i = 0; i < books.length; i++) {
                         Book book1 = books[i];
-                        System.out.printf(i+1+": %s\n", book1.getTitle());
-                        
+                        System.out.printf(i+1+": %s | ", book1.getTitle());
+                        System.out.print("Authors: ");
                         for (int j = 0; j < book1.getAuthors().length; j++) {
-                            System.out.printf("Authors: \n%s %s.%n",
+                            if (j==(book1.getAuthors().length)-1) {     // current if-else construction is to avoid "," after last iteration
+                                System.out.printf("%s %s",
                                     book1.getAuthors()[j].getName(),
                                     book1.getAuthors()[j].getlastName());
+                            }else {
+                            System.out.printf("%s %s, ",
+                                    book1.getAuthors()[j].getName(),
+                                    book1.getAuthors()[j].getlastName());
+                            }
                         }
+                        System.out.println("");
                     }
-                    
                     System.out.println(splitter);
                     break;
                 case 6:
@@ -92,28 +98,24 @@ public class App {
                     System.out.println("7 - Edit book");
                     System.out.println("Input book number you like to edit ");
                     int bookNrToEdit = scanner.nextInt()-1;
-                    Book editBook = books[bookNrToEdit];
-                    Book changeBook = new Book();
-
+                    Book editBook = books[bookNrToEdit];    // editBook holds array element 
+                    Book changeBook = new Book();           // changeBook will keep overpatching
                     System.out.println("Now you gonna edit book\n" + editBook);
                     System.out.println("Press 'T' to edit title\nPress 'A' to edit author(s)");
                     scanner.nextLine();
-                    
-//                    System.out.println(Arrays.toString(editBook.getAuthors()));
-                    
                     String whatToEdit = scanner.nextLine();
                     switch (whatToEdit.toUpperCase()){
                         case "T":
                             System.out.println("Input new title: ");
-                            changeBook.setTitle(scanner.nextLine());
+                            changeBook.setTitle(scanner.nextLine());        // set new title for changeBook
                             for (int i = 0; i < editBook.getAuthors().length; i++) {
-                                changeBook.addAuthor(editBook.getAuthors()[i]);     // copy to changeBook array with old authors
+                                changeBook.addAuthor(editBook.getAuthors()[i]);     // copy to changeBook array from editBook with old authors
                             }
-                            books[bookNrToEdit] = changeBook;
+                            books[bookNrToEdit] = changeBook;       // replace overpatching
                             break;
                         case "A":
                             System.out.println("This book has " + editBook.getAuthors().length + " author(s)");
-                            if (editBook.getAuthors().length > 1) {
+                            if (editBook.getAuthors().length > 1) {     // if more than one author
                                 for (int i = 0; i < editBook.getAuthors().length; i++) {
                                     System.out.println((i+1) + ". " + editBook.getAuthors()[i]);
                                 }
@@ -121,31 +123,21 @@ public class App {
                                 int authorToEdit = scanner.nextInt()-1;
                                 scanner.nextLine();
                                 for (int i = 0; i < editBook.getAuthors().length; i++) {
-                                    if (authorToEdit == i) {
-                                        changeBook.addAuthor(createAuthor());
+                                    if (authorToEdit == i) {                    
+                                        changeBook.addAuthor(createAuthor());   // create new author to changeBook
                                         
                                     }else {
-                                        changeBook.addAuthor(editBook.getAuthors()[i]);
+                                        changeBook.addAuthor(editBook.getAuthors()[i]);     // copy not edited aothors for editBook to change Book
                                     }
                                 }
-                            }else{
+                            }else{  // if only one author
                                 System.out.println("Input new author data: ");
                                 changeBook.addAuthor(createAuthor());
                             }
-                            changeBook.setTitle(editBook.getTitle());
-                            books[bookNrToEdit] = changeBook;
-                            
-                            
-                            
-                            
-                            
+                            changeBook.setTitle(editBook.getTitle());       // copy title to changeBook from editBook
+                            books[bookNrToEdit] = changeBook;               // // replace overpatching
                             break;
-                            
-                    }
-                    
-                    
-                    
-                    
+                    }   // switch (whatToEdit.toUpperCase()) ends
                     System.out.println(splitter);
                 default:
                     System.out.println("Choose function number from the list!\n---------------------------------------------------------------------------");
