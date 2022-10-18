@@ -4,13 +4,15 @@ package entity;
 public class Reader {
     private String name;
     private String lastName;
+    private String phone;
 
     public Reader() {
     }
 
-    public Reader(String name, String lastName) {
+    public Reader(String name, String lastName, String phone) {
         this.name = name;
         this.lastName = lastName;
+        this.phone = phone;
     }
 
     public String getlastName() {
@@ -28,6 +30,14 @@ public class Reader {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public String getPhone() {
+        return phone;
+    }
+    
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     @Override
     public String toString() {
@@ -37,8 +47,6 @@ public class Reader {
                 + ", lastName=" 
                 + lastName + '}';
     }
-    
-    
-    
+
     
 }

@@ -6,11 +6,26 @@ import entity.History;
 import entity.Reader;
 import java.util.Arrays;
 import java.util.Scanner;
+import managers.BookManager;
+import managers.Readermanager;
 
 public class App {
-    private Scanner scanner = new Scanner(System.in);
-    private Book[] books = new Book[0];     // initialize object book with null = link to Book[0]
-//    private Author[] authors = new Author[0];
+    private final Scanner scanner = new Scanner(System.in);
+    private final BookManager bookManager ;
+    private Book[] books;     // initialize object book with null = link to Book[0]
+    private Reader[] readers;
+    private final Readermanager readerManager;
+    
+
+    public App() {
+        books =  new Book[0];
+        readers = new Reader[0];
+        bookManager = new BookManager();
+        readerManager = new Readermanager();
+        testAddbook();
+        testAddReader();
+        
+    }
     public void run(){
         String splitter = "------------------------------------------------------------------------------";
         
@@ -23,7 +38,7 @@ public class App {
             System.out.println("3 - Give book out");
             System.out.println("4 - Return book");
             System.out.println("5 - Books list");
-            System.out.println("6 - Authors list");
+            System.out.println("6 - Readers list");
             System.out.println("7 - Edit book");
             System.out.println("Choose function number:");
             int task = scanner.nextInt();
@@ -36,24 +51,19 @@ public class App {
                    break;
                 case 1:
                     System.out.println("1 - Add book");
-                    Book book =  new Book();
-                    System.out.println("Input book title: ");
-                    book.setTitle(scanner.nextLine());  // call class book.method setTitle(value)
-                    System.out.println("How many authors: ");
-                    int countAuthorsInBook = scanner.nextInt();
-                    scanner.nextLine();
-                    for (int i = 0; i < countAuthorsInBook; i++) {
-                        book.addAuthor(createAuthor());     // class book.method addAuthor(method CreateAuthor());
-                    }
-                    Book[] newBook = Arrays.copyOf(this.books, this.books.length+1);    // this - means that variable belong to the class
-                    newBook[newBook.length-1] = book;
-                    this.books = newBook;
+                    addBook(bookManager.createBook());
+//                    Book[] newBook = Arrays.copyOf(this.books, this.books.length+1);    // this - means that variable belong to the class
+//                    newBook[newBook.length-1] = book;
+//                    this.books = newBook;
                     
                     System.out.println(splitter);
                    break;
                 case 2:
                     System.out.println("2 - Add reader");
-                    Reader reader =  new Reader();
+                    addReader(readerManager.createReader());
+//                    Reader[] newReader = Arrays.copyOf(this.readers, this.readers.length+1);
+//                    this.readers = newReader;
+                    
                     
                     System.out.println(splitter);
                     break;
@@ -70,27 +80,14 @@ public class App {
                     break;
                 case 5:
                     System.out.println("5 - Books list");
-                    for (int i = 0; i < books.length; i++) {
-                        Book book1 = books[i];
-                        System.out.printf(i+1+": %s | ", book1.getTitle());
-                        System.out.print("Authors: ");
-                        for (int j = 0; j < book1.getAuthors().length; j++) {
-                            if (j==(book1.getAuthors().length)-1) {     // current if-else construction is to avoid "," after last iteration
-                                System.out.printf("%s %s",
-                                    book1.getAuthors()[j].getName(),
-                                    book1.getAuthors()[j].getlastName());
-                            }else {
-                            System.out.printf("%s %s, ",
-                                    book1.getAuthors()[j].getName(),
-                                    book1.getAuthors()[j].getlastName());
-                            }
-                        }
-                        System.out.println("");
-                    }
+                    bookManager.printListBooks(books);
                     System.out.println(splitter);
                     break;
                 case 6:
-                    System.out.println("6 - Authors list");
+                    System.out.println("6 - Readers list");
+                    for (int i = 0; i < readers.length; i++) {
+                        System.out.printf("%d. %s %s, phone: %s%n", i+1, readers[i].getName(), readers[i].getlastName(), readers[i].getPhone() );
+                    }
                     
                     System.out.println(splitter);
                     break;
@@ -142,8 +139,6 @@ public class App {
                 default:
                     System.out.println("Choose function number from the list!\n---------------------------------------------------------------------------");
             }
-            
-            
         }while(repeat);
         System.out.println("Good bye!");
     }
@@ -155,6 +150,34 @@ public class App {
         System.out.println("Author lastname: ");
         author.setlastName(scanner.nextLine());
         return author;
+    }
+    
+    private void addBook(Book book){
+        books = Arrays.copyOf(books, books.length+1);
+        books[books.length-1] = book;
+    }
+    
+    private void addReader(Reader reader){
+        readers = Arrays.copyOf(readers, readers.length+1);
+        readers[readers.length-1] = reader;
+    }
+    
+    
+    // to add book automatically
+    private void testAddbook(){
+        Book book = new Book();
+        book.setTitle("War and Peace");
+        Author author =  new Author("Lev", "Tolstoj");
+        book.addAuthor(author);
+        this.books = Arrays.copyOf(books, books.length + 1);
+        this.books[this.books.length-1] = book;
+    }
+    
+    // to add reader automatically
+    private void testAddReader(){
+        Reader reader = new Reader("Tolik", "Pruzhinkin", "55123123");
+        this.readers = Arrays.copyOf(this.readers, this.readers.length+1);
+        this.readers[this.readers.length-1] = reader;
     }
 
 }
