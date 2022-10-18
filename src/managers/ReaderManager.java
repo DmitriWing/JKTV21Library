@@ -4,11 +4,11 @@ package managers;
 import entity.Reader;
 import java.util.Scanner;
 
-public class Readermanager {
+public class ReaderManager {
     private final Scanner scanner;
     private Reader[] readers;
     
-    public Readermanager() {
+    public ReaderManager() {
         scanner = new Scanner(System.in);
     }
     
@@ -21,7 +21,15 @@ public class Readermanager {
         System.out.println("Input reader phone ");
         reader.setPhone(scanner.nextLine());
         return reader;
-        
-        
+    }
+    
+    public void printListReaders (Reader readers[]){
+        for (int i = 0; i < readers.length; i++) {
+            System.out.printf("%d. %s %s, phone: %s%n", 
+                    i+1, 
+                    readers[i].getName(), 
+                    readers[i].getlastName(), 
+                    readers[i].getPhone() );
+        }
     }
 }

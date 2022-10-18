@@ -1,4 +1,3 @@
-
 package managers;
 
 import entity.Author;
@@ -7,7 +6,7 @@ import java.util.Scanner;
 
 public class BookManager {
     private final Scanner scanner;
-    private Book[] books;     // initialize object book with null = link to Book[0]
+//    private Book[] books;     // initialize object book with null = link to Book[0]
 
     public BookManager() {
         scanner = new Scanner(System.in);
@@ -39,7 +38,7 @@ public class BookManager {
     public void printListBooks(Book[] books){
         for (int i = 0; i < books.length; i++) {
             Book book1 = books[i];
-            System.out.printf("%d: %s | ",i+1, book1.getTitle());
+            System.out.printf("%d: %s; ",i+1, book1.getTitle());
             System.out.print("Authors: ");
             for (int j = 0; j < book1.getAuthors().length; j++) {
                 if (j==(book1.getAuthors().length)-1) {     // current if-else construction is to avoid "," after last iteration
@@ -54,7 +53,5 @@ public class BookManager {
             }
             System.out.println("");
         }
-        
     }
-     
 }

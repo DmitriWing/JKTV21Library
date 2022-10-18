@@ -7,24 +7,30 @@ import entity.Reader;
 import java.util.Arrays;
 import java.util.Scanner;
 import managers.BookManager;
-import managers.Readermanager;
+import managers.ReaderManager;
+import managers.HistoryManager;
 
 public class App {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
     private final BookManager bookManager ;
+    private final ReaderManager readerManager;
+    private final HistoryManager historyManager;
     private Book[] books;     // initialize object book with null = link to Book[0]
     private Reader[] readers;
-    private final Readermanager readerManager;
+    private History[] histories;
     
 
     public App() {
+        scanner = new Scanner(System.in);
+        bookManager = new BookManager();
+        readerManager = new ReaderManager();
+        historyManager = new HistoryManager();
+        
         books =  new Book[0];
         readers = new Reader[0];
-        bookManager = new BookManager();
-        readerManager = new Readermanager();
+        histories = new History[0];
         testAddbook();
         testAddReader();
-        
     }
     public void run(){
         String splitter = "------------------------------------------------------------------------------";
@@ -52,19 +58,11 @@ public class App {
                 case 1:
                     System.out.println("1 - Add book");
                     addBook(bookManager.createBook());
-//                    Book[] newBook = Arrays.copyOf(this.books, this.books.length+1);    // this - means that variable belong to the class
-//                    newBook[newBook.length-1] = book;
-//                    this.books = newBook;
-                    
                     System.out.println(splitter);
                    break;
                 case 2:
                     System.out.println("2 - Add reader");
                     addReader(readerManager.createReader());
-//                    Reader[] newReader = Arrays.copyOf(this.readers, this.readers.length+1);
-//                    this.readers = newReader;
-                    
-                    
                     System.out.println(splitter);
                     break;
                 case 3:
@@ -85,10 +83,7 @@ public class App {
                     break;
                 case 6:
                     System.out.println("6 - Readers list");
-                    for (int i = 0; i < readers.length; i++) {
-                        System.out.printf("%d. %s %s, phone: %s%n", i+1, readers[i].getName(), readers[i].getlastName(), readers[i].getPhone() );
-                    }
-                    
+                    readerManager.printListReaders(readers);
                     System.out.println(splitter);
                     break;
                 case 7:
@@ -132,7 +127,7 @@ public class App {
                                 changeBook.addAuthor(createAuthor());
                             }
                             changeBook.setTitle(editBook.getTitle());       // copy title to changeBook from editBook
-                            books[bookNrToEdit] = changeBook;               // // replace overpatching
+                            books[bookNrToEdit] = changeBook;               // replace overpatching
                             break;
                     }   // switch (whatToEdit.toUpperCase()) ends
                     System.out.println(splitter);
@@ -160,6 +155,11 @@ public class App {
     private void addReader(Reader reader){
         readers = Arrays.copyOf(readers, readers.length+1);
         readers[readers.length-1] = reader;
+    }
+    
+    private void addHistories(History history){
+        histories = Arrays.copyOf(histories, histories.length);
+        histories[histories.length-1] = history;
     }
     
     
