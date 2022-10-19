@@ -46,6 +46,7 @@ public class App {
             System.out.println("5 - Books list");
             System.out.println("6 - Readers list");
             System.out.println("7 - Edit book");
+            System.out.println("8 - Given books out list");
             System.out.println("Choose function number:");
             int task = scanner.nextInt();
             scanner.nextLine();
@@ -67,13 +68,13 @@ public class App {
                     break;
                 case 3:
                     System.out.println("3 - Give book out");
-                    History history =  new History();
+                    addHistories(historyManager.takeOnBook(readers, books));
                     
                     System.out.println(splitter);
                     break;
                 case 4:
                     System.out.println("4 - Return book");
-                    
+                    histories = historyManager.returnBook(histories);
                     System.out.println(splitter);
                     break;
                 case 5:
@@ -131,6 +132,12 @@ public class App {
                             break;
                     }   // switch (whatToEdit.toUpperCase()) ends
                     System.out.println(splitter);
+                case 8:
+                    System.out.println("8 - Given books out list");
+                    historyManager.prinListReadingBooks(histories);
+                    
+                    System.out.println(splitter);
+                    break;
                 default:
                     System.out.println("Choose function number from the list!\n---------------------------------------------------------------------------");
             }
@@ -158,7 +165,7 @@ public class App {
     }
     
     private void addHistories(History history){
-        histories = Arrays.copyOf(histories, histories.length);
+        histories = Arrays.copyOf(histories, histories.length+1);
         histories[histories.length-1] = history;
     }
     
