@@ -37,17 +37,17 @@ public class App {
         
         boolean repeat = true;
         do{
-            System.out.println("App functions:");
-            System.out.println("0 - Quit");
-            System.out.println("1 - Add book");
-            System.out.println("2 - Add reader");
-            System.out.println("3 - Give book out");
-            System.out.println("4 - Return book");
-            System.out.println("5 - Books list");
-            System.out.println("6 - Readers list");
-            System.out.println("7 - Edit book");
-            System.out.println("8 - Given books out list");
-            System.out.println("9 - Edit reader");
+//            System.out.println("App functions:");
+//            System.out.println("0 - Quit");
+//            System.out.println("1 - Add book");
+//            System.out.println("2 - Add reader");
+//            System.out.println("3 - Give book out");
+//            System.out.println("4 - Return book");
+//            System.out.println("5 - Books list");
+//            System.out.println("6 - Readers list");
+//            System.out.println("7 - Edit book");
+//            System.out.println("8 - Given books out list");
+//            System.out.println("9 - Edit reader");
             
             System.out.println("0 - Quit");
             System.out.println("1 - Add book");
@@ -74,46 +74,43 @@ public class App {
                     System.out.println(splitter);
                    break;
                 case 2:
-                    System.out.println("2 - Add reader");
-                    addReader(readerManager.createReader());
-                    System.out.println(splitter);
-                    break;
-                case 3:
-                    System.out.println("3 - Give book out");
-                    addHistories(historyManager.takeOnBook(readers, books));
-                    
-                    System.out.println(splitter);
-                    break;
-                case 4:
-                    System.out.println("4 - Return book");
-                    histories = historyManager.returnBook(histories);
-                    System.out.println(splitter);
-                    break;
-                case 5:
-                    System.out.println("5 - Books list");
+                    System.out.println("2 - Books list");
                     bookManager.printListBooks(books);
                     System.out.println(splitter);
                     break;
+                case 3:
+                    System.out.println("3 - Edit book");
+                    bookManager.editBook(books);
+                    System.out.println(splitter);
+                    break;
+                case 4:
+                    System.out.println("4 - Give book out");
+                    addHistories(historyManager.takeOnBook(readers, books));
+                    System.out.println(splitter);
+                    break;
+                case 5:
+                    System.out.println("5 - Return book");
+                    histories = historyManager.returnBook(histories);
+                    System.out.println(splitter);
+                    break;
                 case 6:
-                    System.out.println("6 - Readers list");
-                    readerManager.printListReaders(readers);
+                    System.out.println("6 - Given books out list");
+                    historyManager.prinListReadingBooks(histories);
                     System.out.println(splitter);
                     break;
                 case 7:
-                    System.out.println("7 - Edit book");
-                    bookManager.editBook(books);
-                    
+                    System.out.println("7 - Add reader");
+                    addReader(readerManager.createReader());
                     System.out.println(splitter);
+                    break;
                 case 8:
-                    System.out.println("8 - Given books out list");
-                    historyManager.prinListReadingBooks(histories);
-                    
+                    System.out.println("8 - Readers list");
+                    readerManager.printListReaders(readers);
                     System.out.println(splitter);
                     break;
                 case 9:
                     System.out.println("9 - Edit reader");
                     readers = readerManager.editReader(readers);
-                    
                     System.out.println(splitter);
                     break;
                 default:
