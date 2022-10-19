@@ -32,4 +32,41 @@ public class ReaderManager {
                     readers[i].getPhone() );
         }
     }
+
+    public Reader[] editReader(Reader[] readers) {
+        System.out.println("Choose reader number from list below you like to edit");
+        this.printListReaders(readers);
+        int numberReader = scanner.nextInt(); scanner.nextLine();
+        System.out.println(readers[numberReader-1].getName());
+        System.out.println("Change? (y/n)");
+        String task = scanner.nextLine();
+        switch (task.toUpperCase()){
+            case "Y":
+                readers[numberReader-1].setName(scanner.nextLine());
+                break;
+
+        }
+        System.out.println(readers[numberReader-1].getlastName());
+        System.out.println("Change? (y/n)");
+        task = scanner.nextLine();
+        switch (task.toUpperCase()){
+            case "Y":
+                readers[numberReader-1].setlastName(scanner.nextLine());
+                break;
+
+        }
+        System.out.println(readers[numberReader-1].getPhone());
+        System.out.println("Change? (y/n)");
+        task = scanner.nextLine();
+        switch (task.toUpperCase()){
+            case "Y":
+                readers[numberReader-1].setPhone(scanner.nextLine());
+                break;
+
+        }
+        return readers;
+        
+    }
+    
+    
 }
