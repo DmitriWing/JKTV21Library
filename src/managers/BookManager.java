@@ -2,6 +2,7 @@ package managers;
 
 import entity.Author;
 import entity.Book;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class BookManager {
@@ -65,14 +66,18 @@ public class BookManager {
                     scanner.nextLine();
                     String whatToEdit = scanner.nextLine();
                     switch (whatToEdit.toUpperCase()){
+                        
                         case "T":
                             System.out.println("Input new title: ");
                             changeBook.setTitle(scanner.nextLine());        // set new title for changeBook
                             for (int i = 0; i < editBook.getAuthors().length; i++) {
                                 changeBook.addAuthor(editBook.getAuthors()[i]);     // copy to changeBook array from editBook with old authors
                             }
-                            books[bookNrToEdit] = changeBook;       // replace overpatching
+                            Arrays.asList(books).replaceAll(s->s.equals(editBook) ? changeBook : s);
+//                            books[bookNrToEdit] = changeBook;       // replace overpatching
                             break;
+                            
+                            
                         case "A":
                             System.out.println("This book has " + editBook.getAuthors().length + " author(s)");
                             if (editBook.getAuthors().length > 1) {     // if more than one author
@@ -95,7 +100,8 @@ public class BookManager {
                                 changeBook.addAuthor(createAuthor());
                             }
                             changeBook.setTitle(editBook.getTitle());       // copy title to changeBook from editBook
-                            books[bookNrToEdit] = changeBook;               // replace overpatching
+//                            books[bookNrToEdit] = changeBook;               // replace overpatching
+                            Arrays.asList(books).replaceAll(s->s.equals(editBook) ? changeBook : s);
                             break;
                     }   // switch (whatToEdit.toUpperCase()) ends
     }
