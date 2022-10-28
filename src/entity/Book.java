@@ -1,9 +1,10 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 
-public class Book {
+public class Book implements Serializable{      // implements Serializable: add new data type to class - Serializable. To have opportunity save data in files. Serializable returns array byte[].
    private String title;
    private Author[] authors = new Author[0];
 

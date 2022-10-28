@@ -4,11 +4,20 @@ import entity.Author;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import managers.BookManager;
 import managers.ReaderManager;
 import managers.HistoryManager;
+import managers.DataManager;
 
 public class App {
     private final Scanner scanner;
@@ -18,6 +27,7 @@ public class App {
     private Book[] books;     // initialize object book with null = link to Book[0]
     private Reader[] readers;
     private History[] histories;
+    private DataManager dataManager = new DataManager();
     
 
     public App() {
@@ -25,11 +35,11 @@ public class App {
         bookManager = new BookManager();
         readerManager = new ReaderManager();
         historyManager = new HistoryManager();
-        
-        books =  new Book[0];
+        dataManager = new DataManager();
+        books = dataManager.loadBooksFromFile();
         readers = new Reader[0];
         histories = new History[0];
-        testAddbook();
+//        testAddbook();
         testAddReader();
     }
     public void run(){
@@ -37,18 +47,6 @@ public class App {
         
         boolean repeat = true;
         do{
-//            System.out.println("App functions:");
-//            System.out.println("0 - Quit");
-//            System.out.println("1 - Add book");
-//            System.out.println("2 - Add reader");
-//            System.out.println("3 - Give book out");
-//            System.out.println("4 - Return book");
-//            System.out.println("5 - Books list");
-//            System.out.println("6 - Readers list");
-//            System.out.println("7 - Edit book");
-//            System.out.println("8 - Given books out list");
-//            System.out.println("9 - Edit reader");
-            
             System.out.println("0 - Quit");
             System.out.println("1 - Add book");
             System.out.println("2 - Books list");
@@ -71,6 +69,7 @@ public class App {
                 case 1:
                     System.out.println("1 - Add book");
                     addBook(bookManager.createBook());
+                    dataManager.saveBooksToFile(books);
                     System.out.println(splitter);
                    break;
                 case 2:
@@ -161,5 +160,7 @@ public class App {
         this.readers = Arrays.copyOf(this.readers, this.readers.length+1);
         this.readers[this.readers.length-1] = reader;
     }
+
+    
 
 }
