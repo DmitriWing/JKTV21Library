@@ -1,6 +1,7 @@
 package managers;
 
 import entity.Book;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,14 +10,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jktv21library.App;
 
 
 
 public class DataManager {
+    private final String FILENAME_BOOKS = "files/Mybooks";      // vatiable consists relative route and file name - derictory/file name
+    private final File file;
+    
+    public DataManager() {
+        file = new File("files");       
+        file.mkdirs();      // creates new folder in the root
+    }
+    
+    
     public void saveBooksToFile(Book[] books){
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("MyBooks");    // FileOutputStream fileOutputStream = new FileOutputStream("file name");
+            FileOutputStream fileOutputStream = new FileOutputStream(FILENAME_BOOKS);    // FileOutputStream fileOutputStream = new FileOutputStream("file name");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(books);  // write array books to file
         } catch (FileNotFoundException ex) {
@@ -29,7 +38,7 @@ public class DataManager {
     public Book[] loadBooksFromFile() {
         Book[] books = new Book[0];
         try {
-            FileInputStream fileInputStream = new FileInputStream("myBooks");
+            FileInputStream fileInputStream = new FileInputStream(FILENAME_BOOKS);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             books = (Book[]) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {
