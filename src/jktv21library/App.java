@@ -35,6 +35,7 @@ public class App {
 //        testAddbook();
 //        testAddReader();
     }
+    // add books quantity in library. if 2 books in library and two persons got it, than third person can't tak it
     public void run(){
         String splitter = "------------------------------------------------------------------------------";
         
