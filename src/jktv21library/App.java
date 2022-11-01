@@ -21,6 +21,7 @@ public class App {
     private History[] histories;
     private final DataManager dataManager;
     
+    
 
     public App() {
         scanner = new Scanner(System.in);
@@ -29,10 +30,10 @@ public class App {
         historyManager = new HistoryManager();
         dataManager = new DataManager();
         books = dataManager.loadBooksFromFile();
-        readers = new Reader[0];
-        histories = new History[0];
+        readers = dataManager.loadReadersFromFile();
+        histories = dataManager.loadHistoriesFromFile();
 //        testAddbook();
-        testAddReader();
+//        testAddReader();
     }
     public void run(){
         String splitter = "------------------------------------------------------------------------------";
@@ -77,6 +78,7 @@ public class App {
                 case 4:
                     System.out.println("4 - Give book out");
                     addHistories(historyManager.takeOnBook(readers, books));
+                    dataManager.saveHistoryToFile(histories);
                     System.out.println(splitter);
                     break;
                 case 5:
@@ -92,6 +94,7 @@ public class App {
                 case 7:
                     System.out.println("7 - Add reader");
                     addReader(readerManager.createReader());
+                    dataManager.saveReadersToFile(readers);
                     System.out.println(splitter);
                     break;
                 case 8:

@@ -1,7 +1,9 @@
 package entity;
 
+import java.io.Serializable;
 
-public class Reader {
+
+public class Reader implements Serializable{
     private String name;
     private String lastName;
     private String phone;
