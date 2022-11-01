@@ -19,7 +19,7 @@ public class App {
     private Book[] books;     // initialize object book with null = link to Book[0]
     private Reader[] readers;
     private History[] histories;
-    private DataManager dataManager = new DataManager();
+    private final DataManager dataManager;
     
 
     public App() {
