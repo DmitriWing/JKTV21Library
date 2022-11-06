@@ -9,17 +9,19 @@ public class History implements Serializable{
     private Book book;
     private Date takeOnBook;
     private Date returnBook;
+    private int booksQtyTaken;
     
     
     public History() {
         
     }
 
-    public History(Reader reader, Book book, Date takeOnBook, Date returnBook) {
+    public History(Reader reader, Book book, Date takeOnBook, Date returnBook, int booksQtyTaken) {
         this.reader = reader;
         this.book = book;
         this.takeOnBook = takeOnBook;
         this.returnBook = returnBook;
+        this.booksQtyTaken = booksQtyTaken;
     }
 
     public Date getReturnBook() {
@@ -53,6 +55,17 @@ public class History implements Serializable{
     public void setTakeOnBook(Date takeOnBook) {
         this.takeOnBook = takeOnBook;
     }
+    
+    public int getBooksQtyTaken() {
+        return booksQtyTaken;
+    }
+
+    public void setBooksQtyTaken(int booksQtyTaken) {
+        this.booksQtyTaken = booksQtyTaken;
+    }
+    
+    
+    
 
     @Override
     public String toString() {
@@ -60,8 +73,12 @@ public class History implements Serializable{
                 + "reader=" + reader 
                 + ", book=" + book 
                 + ", takeOnBook=" + takeOnBook 
-                + ", returnBook=" + returnBook + '}';
+                + ", returnBook=" + returnBook 
+                + ", taken=" + booksQtyTaken + " pieces"
+                + '}';
     }
+
+    
     
     
     

@@ -41,15 +41,9 @@ public class App {
         boolean repeat = true;
         do{
             System.out.println("0 - Quit");
-            System.out.println("1 - Add book");
-            System.out.println("2 - Books list");
-            System.out.println("3 - Edit book");
-            System.out.println("4 - Give book out");
-            System.out.println("5 - Return book");
-            System.out.println("6 - Given books out list");
-            System.out.println("7 - Add reader");
-            System.out.println("8 - Readers list");
-            System.out.println("9 - Edit reader");
+            System.out.println("1 - Add book        | 2 - Books list    | 3 - Edit book");
+            System.out.println("4 - Give book out   | 5 - Return book   | 6 - Given books out list");
+            System.out.println("7 - Add reader      | 8 - Readers list  | 9 - Edit reader");
             System.out.println("Choose function number:");
             int task = scanner.nextInt();
             scanner.nextLine();
@@ -73,6 +67,7 @@ public class App {
                 case 3:
                     System.out.println("3 - Edit book");
                     bookManager.editBook(books);
+                    dataManager.saveBooksToFile(books);
                     System.out.println(splitter);
                     break;
                 case 4:
@@ -105,6 +100,7 @@ public class App {
                 case 9:
                     System.out.println("9 - Edit reader");
                     readers = readerManager.editReader(readers);
+                    dataManager.saveReadersToFile(readers);
                     System.out.println(splitter);
                     break;
                 default:
