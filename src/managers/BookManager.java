@@ -3,6 +3,7 @@ package managers;
 import entity.Author;
 import entity.Book;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class BookManager {
@@ -39,9 +40,9 @@ public class BookManager {
        return author;
     }
     
-    public void printListBooks(Book[] books){
-        for (int i = 0; i < books.length; i++) {
-            Book book1 = books[i];
+    public void printListBooks(List<Book> books){
+        for (int i = 0; i < books.size(); i++) {
+            Book book1 = books.get(i);
             System.out.printf("%d: %s; ",i+1, book1.getTitle());
             System.out.print("\n\tAuthors: ");
             for (int j = 0; j < book1.getAuthors().length; j++) {
@@ -61,19 +62,19 @@ public class BookManager {
         }
     }
     
-    public Book[] editBook(Book[] books){
+    public List<Book> editBook(List<Book> books){
         this.printListBooks(books);
         System.out.print("Choose book number to edit: ");
         int bookNrToEdit = scanner.nextInt()-1; scanner.nextLine();
-        System.out.printf("Edit title '%s'? Choose option: (y / n) ", books[bookNrToEdit].getTitle());
+        System.out.printf("Edit title '%s'? Choose option: (y / n) ", books.get(bookNrToEdit).getTitle());
             String task = scanner.nextLine();
             switch (task.toLowerCase()){
                 case "y":
                     System.out.print("Input new title: ");
-                    books[bookNrToEdit].setTitle(scanner.nextLine());
+                    books.get(bookNrToEdit).setTitle(scanner.nextLine());
                 break;
             }
-            System.out.println("This book has " + books[bookNrToEdit].getAuthors().length + " author(s)");
+            System.out.println("This book has " + books.get(bookNrToEdit).getAuthors().length + " author(s)");
             System.out.println("Change authors quantity? (y / n)");
             task = scanner.nextLine();
             switch(task.toLowerCase()){
@@ -82,33 +83,42 @@ public class BookManager {
                 
                 int newAuthorsQtyAtBook = scanner.nextInt(); scanner.nextLine();
                 // if new qty less, than output numeric list of authors and ask specify what to be deleted
-                if(newAuthorsQtyAtBook < books[bookNrToEdit].getAuthors().length){
-                    int deltaAuthors = books[bookNrToEdit].getAuthors().length - newAuthorsQtyAtBook;
-                    for (int i = 0; i < deltaAuthors; i++) {
-                        books[bookNrToEdit] = deleteAuthorBook(books[bookNrToEdit]);        // delete extra (deltaAuthors) authors from book
+                if(newAuthorsQtyAtBook < books.get(bookNrToEdit).getAuthors().length){
+                    int deltaAuthors = books.get(bookNrToEdit).getAuthors().length - newAuthorsQtyAtBook;
+                    for (int n = 0; n < deltaAuthors; n++) {
+                        //удаляем лишних (deltaAuthors) авторов из книги
+                        for (int i = 0; i < books.get(bookNrToEdit - 1).getAuthors().length; i++) {
+                            System.out.println(
+                                        i+1+". "+books.get(bookNrToEdit - 1).getAuthors()[i].getName()+" "+
+                                                books.get(bookNrToEdit - 1).getAuthors()[i].getlastName());
+                            }
+                        System.out.println("Какого автора удалить? ");
+                        int numDeleteAuthor = scanner.nextInt();
+                        scanner.nextLine();
+                        books.get(bookNrToEdit - 1).removeAuthor(numDeleteAuthor-1);
                     }
                 }else{
                     for (int i = 0; i < newAuthorsQtyAtBook; i++) {
                         // newAuthorsQtyAtBook more than authors qty in book
-                        if (i >= books[bookNrToEdit].getAuthors().length) {
+                        if (i >= books.get(bookNrToEdit).getAuthors().length) {
                             // add new author to the book
                             Author newAuthor = new Author();
                             System.out.print("Input new author name " + (i+1) + ": ");
                             newAuthor.setName(scanner.nextLine());
                             System.out.print("Input new author lastname " + (i+1) + ": ");
                             newAuthor.setlastName(scanner.nextLine());
-                            books[bookNrToEdit].addAuthor(newAuthor);
-                        }else if(i < books[bookNrToEdit].getAuthors().length){
+                            books.get(bookNrToEdit).addAuthor(newAuthor);
+                        }else if(i < books.get(bookNrToEdit).getAuthors().length){
                             // change existing authors
                             System.out.println(i+1 + "author: " 
-                                                + books[bookNrToEdit].getAuthors()[i].getName() + " " 
-                                                +books[bookNrToEdit].getAuthors()[i].getlastName() );
+                                                + books.get(bookNrToEdit).getAuthors()[i].getName() + " " 
+                                                +books.get(bookNrToEdit).getAuthors()[i].getlastName() );
                             System.out.print("Edit author name? (y / n)" );
                             task = scanner.nextLine();
                             switch(task.toLowerCase()){
                                 case "y":
                                     System.out.print("Input new name: " );
-                                    books[bookNrToEdit].getAuthors()[i].setName(scanner.nextLine());
+                                    books.get(bookNrToEdit).getAuthors()[i].setName(scanner.nextLine());
                                     break;
                             }
                             System.out.print("Edit author lastname? (y / n)" );
@@ -116,7 +126,7 @@ public class BookManager {
                             switch(task.toLowerCase()){
                                 case "y":
                                     System.out.print("Input new lastname: " );
-                                    books[bookNrToEdit].getAuthors()[i].setlastName(scanner.nextLine());
+                                    books.get(bookNrToEdit).getAuthors()[i].setlastName(scanner.nextLine());
                                     break;
                             }
                         }
@@ -135,12 +145,12 @@ public class BookManager {
 //                    }
 //                break;
 //            }
-            System.out.printf("Edit quantity '%d'? Choose option: (y / n) ", books[bookNrToEdit].getQuantity());
+            System.out.printf("Edit quantity '%d'? Choose option: (y / n) ", books.get(bookNrToEdit).getQuantity());
             task = scanner.nextLine();
             switch (task.toLowerCase()){
                 case "y":
                     System.out.print("Input new quantity: ");
-                    books[bookNrToEdit].setQuantity(scanner.nextInt()); scanner.nextLine();
+                    books.get(bookNrToEdit).setQuantity(scanner.nextInt()); scanner.nextLine();
                 break;
             }
         return books;

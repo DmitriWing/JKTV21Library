@@ -5,6 +5,7 @@ import entity.History;
 import entity.Reader;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Scanner;
 
 public class HistoryManager {
@@ -19,7 +20,7 @@ public class HistoryManager {
         bookManager = new BookManager();
     }
     
-    public History takeOnBook(Reader[] readers, Book[] books){
+    public History takeOnBook(List<Reader> readers, List<Book> books){
         History history = new History();
         // choose reader number from the list
         System.out.println("Readers list");
@@ -39,14 +40,14 @@ public class HistoryManager {
         do {
             System.out.println("How many books would you take? ");
             int booksQtyTaken = scanner.nextInt(); scanner.nextLine();
-            if (booksQtyTaken > books[numberBook-1].getQuantity()) {
+            if (booksQtyTaken > books.get(numberBook-1).getQuantity()) {
                 System.out.println("Not enough books in library.");
             }else{
-                history.setBook(books[numberBook-1]);
-                history.setReader(readers[numberReader-1]);
+                history.setBook(books.get(numberBook-1));
+                history.setReader(readers.get(numberReader-1));
                 history.setBooksQtyTaken(booksQtyTaken);
-                int remainedBooks = books[numberBook-1].getQuantity() - booksQtyTaken;
-                books[numberBook-1].setQuantity(remainedBooks);
+                int remainedBooks = books.get(numberBook-1).getQuantity() - booksQtyTaken;
+                books.get(numberBook-1).setQuantity(remainedBooks);
                 itemQty = false;
             }
             
@@ -55,8 +56,8 @@ public class HistoryManager {
         
         // initialize fields History
         
-        history.setBook(books[numberBook-1]);
-        history.setReader(readers[numberReader-1]);
+        history.setBook(books.get(numberBook-1));
+        history.setReader(readers.get(numberReader-1));
         
         
         // add date of give book out
@@ -64,21 +65,21 @@ public class HistoryManager {
         return history;
     }
     
-    public History[] returnBook (History[] histories){
+    public List<History> returnBook (List<History> histories){
         // choose history number with given out book
         System.out.println("Given out books list");
         this.prinListReadingBooks(histories);
         System.out.print("Choose book number to return: ");
         int numberHistory = scanner.nextInt() - 1; scanner.nextLine();
         // write date of return
-        histories[numberHistory].setReturnBook(new GregorianCalendar().getTime());
+        histories.get(numberHistory).setReturnBook(new GregorianCalendar().getTime());
         return histories;
     }
 
-    public void prinListReadingBooks(History[] histories) {
+    public void prinListReadingBooks(List<History> histories) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy, hh:mm");
-        for (int i = 0; i < histories.length; i++) {
-            History history = histories[i];
+        for (int i = 0; i < histories.size(); i++) {
+            History history = histories.get(i);
             if (history.getReturnBook() == null) {
                 System.out.printf("%d. %s%n\tReader: %s %s, %s %n\tTaken: %d pieces %n\tGiven out at: %s%n", 
                     i+1,

@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +29,7 @@ public class DataManager {
     }
     
     
-    public void saveBooksToFile(Book[] books){
+    public void saveBooksToFile(List<Book> books){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME_BOOKS);    // FileOutputStream fileOutputStream = new FileOutputStream("file name");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -40,12 +42,12 @@ public class DataManager {
         }
     }
     
-    public Book[] loadBooksFromFile() {
-        Book[] books = new Book[0];
+    public List<Book> loadBooksFromFile() {
+        List<Book> books = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(FILENAME_BOOKS);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            books = (Book[]) objectInputStream.readObject();
+            books = (List<Book>) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, "The file doesn't exist", ex);
         } catch (IOException ex) {
@@ -56,7 +58,7 @@ public class DataManager {
         return books;
     }
 
-    public void saveReadersToFile(Reader[] readers) {
+    public void saveReadersToFile(List<Reader> readers) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME_READERS);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -70,12 +72,12 @@ public class DataManager {
         
     }
     
-    public Reader[] loadReadersFromFile(){
-        Reader[] readers = new Reader[0];
+    public List<Reader> loadReadersFromFile(){
+        List<Reader> readers = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(FILENAME_READERS);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            readers = (Reader[]) objectInputStream.readObject();
+            readers = (List<Reader>) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, "The file doesn't exist", ex);
         } catch (IOException ex) {
@@ -87,7 +89,7 @@ public class DataManager {
         return readers;
     }
 
-    public void saveHistoryToFile(History[] histories) {
+    public void saveHistoryToFile(List<History> histories) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME_HISTORY);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -100,12 +102,12 @@ public class DataManager {
         }
     }
     
-    public History[] loadHistoriesFromFile(){
-        History[] histories = new History[0];
+    public List<History> loadHistoriesFromFile(){
+        List<History> histories = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(FILENAME_HISTORY);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            histories = (History[]) objectInputStream.readObject();
+            histories = (List<History>) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, "The file doesn't exist", ex);
         } catch (IOException ex) {

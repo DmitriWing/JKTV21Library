@@ -5,6 +5,7 @@ import entity.Book;
 import entity.History;
 import entity.Reader;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import managers.BookManager;
 import managers.ReaderManager;
@@ -16,9 +17,10 @@ public class App {
     private final BookManager bookManager ;
     private final ReaderManager readerManager;
     private final HistoryManager historyManager;
-    private Book[] books;     // initialize object book with null = link to Book[0]
-    private Reader[] readers;
-    private History[] histories;
+    private List<Book> books;
+    private List<Reader> readers;
+    private List<History> histories;
+//    private History[] histories;
     private final DataManager dataManager;
     
     
@@ -55,7 +57,7 @@ public class App {
                    break;
                 case 1:
                     System.out.println("1 - Add book");
-                    addBook(bookManager.createBook());
+                    books.add(bookManager.createBook());
                     dataManager.saveBooksToFile(books);
                     System.out.println(splitter);
                    break;
@@ -72,7 +74,7 @@ public class App {
                     break;
                 case 4:
                     System.out.println("4 - Give book out");
-                    addHistories(historyManager.takeOnBook(readers, books));
+                    histories.add(historyManager.takeOnBook(readers, books));
                     dataManager.saveHistoryToFile(histories);
                     System.out.println(splitter);
                     break;
@@ -88,7 +90,7 @@ public class App {
                     break;
                 case 7:
                     System.out.println("7 - Add reader");
-                    addReader(readerManager.createReader());
+                    readers.add(readerManager.createReader());
                     dataManager.saveReadersToFile(readers);
                     System.out.println(splitter);
                     break;
@@ -119,38 +121,38 @@ public class App {
         return author;
     }
     
-    private void addBook(Book book){
-        books = Arrays.copyOf(books, books.length+1);
-        books[books.length-1] = book;
-    }
+//    private void addBook(Book book){
+//        books = Arrays.copyOf(books, books.length+1);
+//        books[books.length-1] = book;
+//    }
     
-    private void addReader(Reader reader){
-        readers = Arrays.copyOf(readers, readers.length+1);
-        readers[readers.length-1] = reader;
-    }
+//    private void addReader(Reader reader){
+//        readers = Arrays.copyOf(readers, readers.length+1);
+//        readers[readers.length-1] = reader;
+//    }
     
-    private void addHistories(History history){
-        histories = Arrays.copyOf(histories, histories.length+1);
-        histories[histories.length-1] = history;
-    }
+//    private void addHistories(History history){
+//        histories = Arrays.copyOf(histories, histories.length+1);
+//        histories[histories.length-1] = history;
+//    }
     
     
     // to add book automatically
-    private void testAddbook(){
-        Book book = new Book();
-        book.setTitle("War and Peace");
-        Author author =  new Author("Lev", "Tolstoj");
-        book.addAuthor(author);
-        this.books = Arrays.copyOf(books, books.length + 1);
-        this.books[this.books.length-1] = book;
-    }
+//    private void testAddbook(){
+//        Book book = new Book();
+//        book.setTitle("War and Peace");
+//        Author author =  new Author("Lev", "Tolstoj");
+//        book.addAuthor(author);
+//        this.books = Arrays.copyOf(books, books.length + 1);
+//        this.books[this.books.length-1] = book;
+//    }
     
     // to add reader automatically
-    private void testAddReader(){
-        Reader reader = new Reader("Tolik", "Pruzhinkin", "55123123");
-        this.readers = Arrays.copyOf(this.readers, this.readers.length+1);
-        this.readers[this.readers.length-1] = reader;
-    }
+//    private void testAddReader(){
+//        Reader reader = new Reader("Tolik", "Pruzhinkin", "55123123");
+//        this.readers = Arrays.copyOf(this.readers, this.readers.length+1);
+//        this.readers[this.readers.length-1] = reader;
+//    }
 
     
 
