@@ -85,7 +85,7 @@ public class HistoryManager {
                     i+1,
                     history.getBook().getTitle(),
                     history.getReader().getName(),
-                    history.getReader().getlastName(),
+                    history.getReader().getLastName(),
                     history.getReader().getPhone(),
                     history.getBooksQtyTaken(),
                     sdf.format(history.getTakeOnBook()));

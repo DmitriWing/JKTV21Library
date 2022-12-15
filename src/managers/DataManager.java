@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import managers.interfaces.SaveManagerInterface;
 
 
 
-public class DataManager {
+public class DataManager implements SaveManagerInterface {
     private final String FILENAME_BOOKS = "files/Mybooks";      // variable consists relative route and file name - derictory/file name
     private final String FILENAME_READERS = "files/Myreaders";      // variable consists relative route and file name - derictory/file name
     private final String FILENAME_HISTORY = "files/Myhistories";      // variable consists relative route and file name - derictory/file name
@@ -29,7 +30,8 @@ public class DataManager {
     }
     
     
-    public void saveBooksToFile(List<Book> books){
+    @Override
+    public void saveBooks(List<Book> books){
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME_BOOKS);    // FileOutputStream fileOutputStream = new FileOutputStream("file name");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -42,7 +44,8 @@ public class DataManager {
         }
     }
     
-    public List<Book> loadBooksFromFile() {
+    @Override
+    public List<Book> loadBooks() {
         List<Book> books = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(FILENAME_BOOKS);
@@ -58,7 +61,8 @@ public class DataManager {
         return books;
     }
 
-    public void saveReadersToFile(List<Reader> readers) {
+    @Override
+    public void saveReaders(List<Reader> readers) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME_READERS);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -72,7 +76,8 @@ public class DataManager {
         
     }
     
-    public List<Reader> loadReadersFromFile(){
+    @Override
+    public List<Reader> loadReaders(){
         List<Reader> readers = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(FILENAME_READERS);
@@ -89,7 +94,8 @@ public class DataManager {
         return readers;
     }
 
-    public void saveHistoryToFile(List<History> histories) {
+    @Override
+    public void saveHistories(List<History> histories) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FILENAME_HISTORY);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -102,7 +108,8 @@ public class DataManager {
         }
     }
     
-    public List<History> loadHistoriesFromFile(){
+    @Override
+    public List<History> loadHistories(){
         List<History> histories = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(FILENAME_HISTORY);
@@ -117,6 +124,10 @@ public class DataManager {
         }
         return histories;
     }
+
+   
+
+    
     
             
 }       // public class DataManager ENDS

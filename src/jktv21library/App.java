@@ -7,35 +7,37 @@ import entity.Reader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import managers.BaseManager;
 import managers.BookManager;
 import managers.ReaderManager;
 import managers.HistoryManager;
 import managers.DataManager;
+import managers.interfaces.SaveManagerInterface;
 
 public class App {
+    public static boolean saveToBase;
     private final Scanner scanner;
     private final BookManager bookManager ;
     private final ReaderManager readerManager;
     private final HistoryManager historyManager;
+    private final SaveManagerInterface saveManager;
     private List<Book> books;
     private List<Reader> readers;
     private List<History> histories;
-//    private History[] histories;
-    private final DataManager dataManager;
-    
-    
 
     public App() {
         scanner = new Scanner(System.in);
         bookManager = new BookManager();
         readerManager = new ReaderManager();
         historyManager = new HistoryManager();
-        dataManager = new DataManager();
-        books = dataManager.loadBooksFromFile();
-        readers = dataManager.loadReadersFromFile();
-        histories = dataManager.loadHistoriesFromFile();
-//        testAddbook();
-//        testAddReader();
+        if (App.saveToBase) {
+        saveManager = new BaseManager();
+        }else{
+        saveManager = new DataManager();
+        }
+        books = saveManager.loadBooks();
+        readers = saveManager.loadReaders();
+        histories = saveManager.loadHistories();
     }
     public void run(){
         String splitter = "------------------------------------------------------------------------------";
@@ -58,7 +60,7 @@ public class App {
                 case 1:
                     System.out.println("1 - Add book");
                     books.add(bookManager.createBook());
-                    dataManager.saveBooksToFile(books);
+                    saveManager.saveBooks(books);
                     System.out.println(splitter);
                    break;
                 case 2:
@@ -69,13 +71,13 @@ public class App {
                 case 3:
                     System.out.println("3 - Edit book");
                     bookManager.editBook(books);
-                    dataManager.saveBooksToFile(books);
+                    saveManager.saveBooks(books);
                     System.out.println(splitter);
                     break;
                 case 4:
                     System.out.println("4 - Give book out");
                     histories.add(historyManager.takeOnBook(readers, books));
-                    dataManager.saveHistoryToFile(histories);
+                    saveManager.saveHistories(histories);
                     System.out.println(splitter);
                     break;
                 case 5:
@@ -91,7 +93,7 @@ public class App {
                 case 7:
                     System.out.println("7 - Add reader");
                     readers.add(readerManager.createReader());
-                    dataManager.saveReadersToFile(readers);
+                    saveManager.saveReaders(readers);
                     System.out.println(splitter);
                     break;
                 case 8:
@@ -102,7 +104,7 @@ public class App {
                 case 9:
                     System.out.println("9 - Edit reader");
                     readers = readerManager.editReader(readers);
-                    dataManager.saveReadersToFile(readers);
+                    saveManager.saveReaders(readers);
                     System.out.println(splitter);
                     break;
                 default:
@@ -121,38 +123,7 @@ public class App {
         return author;
     }
     
-//    private void addBook(Book book){
-//        books = Arrays.copyOf(books, books.length+1);
-//        books[books.length-1] = book;
-//    }
-    
-//    private void addReader(Reader reader){
-//        readers = Arrays.copyOf(readers, readers.length+1);
-//        readers[readers.length-1] = reader;
-//    }
-    
-//    private void addHistories(History history){
-//        histories = Arrays.copyOf(histories, histories.length+1);
-//        histories[histories.length-1] = history;
-//    }
-    
-    
-    // to add book automatically
-//    private void testAddbook(){
-//        Book book = new Book();
-//        book.setTitle("War and Peace");
-//        Author author =  new Author("Lev", "Tolstoj");
-//        book.addAuthor(author);
-//        this.books = Arrays.copyOf(books, books.length + 1);
-//        this.books[this.books.length-1] = book;
-//    }
-    
-    // to add reader automatically
-//    private void testAddReader(){
-//        Reader reader = new Reader("Tolik", "Pruzhinkin", "55123123");
-//        this.readers = Arrays.copyOf(this.readers, this.readers.length+1);
-//        this.readers[this.readers.length-1] = reader;
-//    }
+
 
     
 

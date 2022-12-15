@@ -1,27 +1,45 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-
+@Entity
 public class Book implements Serializable{      // implements Serializable: add new data type to class - Serializable. To have opportunity save data in files. Serializable returns array byte[].
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
    private String title;
-   private Author[] authors = new Author[0];
+    @OneToMany
+   private List<Author> authors = new ArrayList<>();
    private int quantity;
-
+   
     public Book() {
     }
 
-    public Book(String title, Author[] authors, int quantity) {
+    public Book(String title, List<Author> authors, int quantity) {
         this.title = title;
         this.authors = authors;
     }
 
-    public Author[] getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
+    
+    public Long getId() {
+        return id;
+    }
 
-    public void setAuthors(Author[] authors) {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 
@@ -48,31 +66,20 @@ public class Book implements Serializable{      // implements Serializable: add 
                 + "title=" 
                 + title 
                 + ", authors=" 
-                + Arrays.toString(getAuthors()) 
+                + Arrays.toString(authors.toArray()) 
                 + ", quantity="
                 + quantity 
                 + '}';
     }
 
     public void addAuthor(Author author) {
-        Author[] newAuthors = Arrays.copyOf(authors, authors.length+1);     // create new array newAuthors = Arrays.copyOf(array to copy, qty of the cells)
-        newAuthors[newAuthors.length-1] = author;
-        this.authors = newAuthors;
+        this.authors.add(author);
     }
 
     public void removeAuthor(int authorNumDelete) { 
-        this.getAuthors()[authorNumDelete-1] = null;        // reset specified author(by index) to null
-        Author[] newAuthors = new Author[this.getAuthors().length - 1];     // create an array with less on 1 elements
-        // copy elements to new array excluding null cell
-        int j = 0;
-        for (Author author : this.getAuthors()) {
-            if (author != null) {
-                newAuthors[j] = author;
-                j++;
-            }
-        }
-        this.setAuthors(newAuthors);    
+          this.authors.remove(authorNumDelete);
     }
+
 
     
    

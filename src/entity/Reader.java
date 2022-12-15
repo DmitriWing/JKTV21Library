@@ -1,9 +1,15 @@
 package entity;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-
+@Entity
 public class Reader implements Serializable{
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String lastName;
     private String phone;
@@ -17,12 +23,12 @@ public class Reader implements Serializable{
         this.phone = phone;
     }
 
-    public String getlastName() {
-        return lastName;
+    public Long getId() {
+        return id;
     }
 
-    public void setlastName(String lastName) {
-        this.lastName = lastName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -32,15 +38,22 @@ public class Reader implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getPhone() {
         return phone;
     }
-    
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
     @Override
     public String toString() {
         return "Reader{" 
