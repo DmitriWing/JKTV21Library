@@ -30,11 +30,13 @@ public class App {
         bookManager = new BookManager();
         readerManager = new ReaderManager();
         historyManager = new HistoryManager();
+        
         if (App.saveToBase) {
         saveManager = new BaseManager();
         }else{
         saveManager = new DataManager();
         }
+        
         books = saveManager.loadBooks();
         readers = saveManager.loadReaders();
         histories = saveManager.loadHistories();

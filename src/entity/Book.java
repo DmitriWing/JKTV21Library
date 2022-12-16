@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Book implements Serializable{      // implements Serializable: add new data type to class - Serializable. To have opportunity save data in files. Serializable returns array byte[].
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+   private Long id;
    private String title;
     @OneToMany
    private List<Author> authors = new ArrayList<>();
@@ -25,22 +25,17 @@ public class Book implements Serializable{      // implements Serializable: add 
     public Book(String title, List<Author> authors, int quantity) {
         this.title = title;
         this.authors = authors;
+        this.quantity = quantity;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
     
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
     }
 
     public String getTitle() {
@@ -50,7 +45,15 @@ public class Book implements Serializable{      // implements Serializable: add 
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -59,7 +62,6 @@ public class Book implements Serializable{      // implements Serializable: add 
         this.quantity = quantity;
     }
     
-
     @Override
     public String toString() {
         return "Book{" 
@@ -80,8 +82,5 @@ public class Book implements Serializable{      // implements Serializable: add 
           this.authors.remove(authorNumDelete);
     }
 
-
-    
-   
    
 }
